@@ -1,26 +1,91 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #ffffff;
+
+  /* POI Colors - Person of Interest */
+  --poi-yellow: #FFD700;
+  --poi-red: #FF4500;
+  --poi-blue: #00FFFF;
+  --poi-white: #FFFFFF;
+  --poi-gray: #4B5563;
+  --poi-black: #000000;
+  --poi-green: #22C55E;
+  --poi-orange: #F97316;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* POI Colors */
+  --color-poi-yellow: var(--poi-yellow);
+  --color-poi-red: var(--poi-red);
+  --color-poi-blue: var(--poi-blue);
+  --color-poi-white: var(--poi-white);
+  --color-poi-gray: var(--poi-gray);
+  --color-poi-black: var(--poi-black);
+  --color-poi-green: var(--poi-green);
+  --color-poi-orange: var(--poi-orange);
+
+  --font-sans: system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, 'Courier New', monospace;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #FFD700;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #FFA500;
+}
+
+/* Selection color */
+::selection {
+  background-color: var(--poi-yellow);
+  color: var(--poi-black);
+}
+
+/* 动画 */
+@keyframes scan {
+  0%, 100% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-scan {
+  animation: scan 3s linear infinite;
+}
+
+.delay-300 {
+  animation-delay: 0.3s;
+}
+
+.delay-700 {
+  animation-delay: 0.7s;
+}
+
+.delay-1000 {
+  animation-delay: 1s;
 }

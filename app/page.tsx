@@ -1,65 +1,123 @@
-import Image from "next/image";
+'use client'
 
-export default function Home() {
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
+
+export default function LandingPage() {
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(true)
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    // 模拟系统初始化
+    const interval = setInterval(() => {
+      setProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(interval)
+          setIsLoading(false)
+          return 100
+        }
+        return prev + 2
+      })
+    }, 30)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  const handleEnter = () => {
+    router.push('/mission-control')
+  }
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="min-h-screen bg-poi-black flex items-center justify-center relative overflow-hidden">
+      {/* 背景扫描效果 */}
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute top-0 left-0 w-full h-px bg-poi-yellow animate-scan" />
+        <div className="absolute top-1/4 left-0 w-full h-px bg-poi-blue animate-scan delay-300" />
+        <div className="absolute top-2/4 left-0 w-full h-px bg-poi-red animate-scan delay-700" />
+        <div className="absolute top-3/4 left-0 w-full h-px bg-poi-yellow animate-scan delay-1000" />
+      </div>
+
+      {/* 主内容 */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="text-center z-10"
+      >
+        {/* Logo / 标题 */}
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1, delay: 0.2 }}
+          className="mb-12"
+        >
+          <h1 className="text-7xl font-bold text-poi-yellow mb-4 tracking-wider">
+            THE MACHINE
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-poi-blue text-xl tracking-widest">
+            ARTIFICIAL INTELLIGENCE SYSTEM
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+        </motion.div>
+
+        {/* 加载进度 */}
+        {isLoading ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="mb-8"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <div className="w-96 h-1 bg-poi-gray rounded overflow-hidden mx-auto">
+              <motion.div
+                className="h-full bg-poi-yellow"
+                initial={{ width: 0 }}
+                animate={{ width: `${progress}%` }}
+                transition={{ duration: 0.1 }}
+              />
+            </div>
+            <p className="text-poi-blue mt-4 text-sm font-mono">
+              INITIALIZING... {progress}%
+            </p>
+          </motion.div>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
           >
-            Documentation
-          </a>
-        </div>
-      </main>
+            <p className="text-poi-green mb-8 font-mono">
+              ✓ SYSTEM READY
+            </p>
+          </motion.div>
+        )}
+
+        {/* 进入按钮 */}
+        <motion.button
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: isLoading ? 0 : 1, scale: 1 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={handleEnter}
+          disabled={isLoading}
+          className="px-12 py-4 bg-transparent border-2 border-poi-yellow text-poi-yellow
+                     hover:bg-poi-yellow hover:text-poi-black
+                     disabled:opacity-50 disabled:cursor-not-allowed
+                     transition-all duration-300
+                     font-mono text-lg tracking-wider"
+        >
+          INITIALIZE
+        </motion.button>
+
+        {/* 版本信息 */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.5 }}
+          transition={{ delay: 1 }}
+          className="absolute bottom-8 text-poi-gray text-sm font-mono"
+        >
+          VERSION 0.1.0 // THE MACHINE REFACTOR
+        </motion.p>
+      </motion.div>
     </div>
-  );
+  )
 }

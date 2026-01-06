@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// 聊天消息
+model ChatMessage {
+  id        String   @id @default(cuid())
+  role      String // 'user' | 'assistant' | 'system'
+  content   String
+  model     String?  @default("gemini")
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@map("chat_messages")
+}
+
+// 功能投票
+model FeatureVote {
+  id        String   @id @default(cuid())
+  feature   String // 'surveillance' | 'simulation' | 'intelligence'
+  voterIp   String? // 简单去重
+  createdAt DateTime @default(now())
+
+  @@unique([feature, voterIp])
+  @@index([feature])
+  @@map("feature_votes")
+}
+
+// 系统配置（预留）
+model SystemConfig {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  updatedAt DateTime @updatedAt
+
+  @@map("system_configs")
+}
+
+// 用户（预留 - v1.0.0）
+model User {
+  id        String   @id @default(cuid())
+  email     String?  @unique
+  name      String?
+  role      String   @default("guest") // 'guest' | 'admin'
+  createdAt DateTime @default(now())
+
+  @@map("users")
+}

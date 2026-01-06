@@ -1,36 +1,208 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎯 The Machine Refactor
 
-## Getting Started
+> An AI assistant inspired by *Person of Interest* - Built with Next.js 14 + Prisma + Tailwind CSS
 
-First, run the development server:
+**Version**: 0.1.0 (MVP)
+**Status**: ✅ Operational
 
+---
+
+## 📺 Overview
+
+The Machine Refactor is a fan-made AI assistant application inspired by the CBS television series *Person of Interest*. It features a sci-fi interface and powerful AI capabilities powered by Google's Gemini API.
+
+### ✨ Features
+
+- **🤖 AI Chat** - Interactive conversations with The Machine
+- **🎨 Sci-Fi UI** - Interface inspired by the show
+- **💾 Chat History** - Conversations are saved automatically
+- **🗳️ Feature Voting** - Vote for upcoming features
+- **📊 Roadmap** - Transparent development timeline
+
+### 🚀 Upcoming Features
+
+- 🔍 **Intelligence Mode** (v0.2.0) - Web search and knowledge graph
+- 🎬 **Simulation Mode** (v0.3.0) - Image and video generation
+- 📷 **Surveillance Mode** (v0.4.0) - Camera and microphone access
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Database**: Prisma ORM + SQLite (dev) / PostgreSQL (prod)
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion
+- **AI**: Google Gemini API
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+
+### Installation
+
+1. **Clone the repository**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/your-username/the-machine-refactor.git
+cd the-machine-refactor
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Install dependencies**
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. **Set up environment variables**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Copy `.env.example` to `.env.local`:
+```bash
+cp .env.example .env.local
+```
 
-## Learn More
+Get your Gemini API Key from [Google AI Studio](https://aistudio.google.com/app/apikey) and add it to `.env.local`:
+```bash
+GEMINI_API_KEY=your-api-key-here
+```
 
-To learn more about Next.js, take a look at the following resources:
+4. **Initialize the database**
+```bash
+npm run db:push
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5. **Run the development server**
+```bash
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+6. **Open your browser**
 
-## Deploy on Vercel
+Navigate to [http://localhost:3000](http://localhost:3000)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📖 Usage
+
+### Modes
+
+The Machine has 4 operational modes:
+
+1. **MISSION_CONTROL** - Chat interface with AI (✅ Available)
+2. **SURVEILLANCE** - Camera and microphone monitoring (🔄 In Development)
+3. **INTELLIGENCE** - Web search and knowledge (🔄 In Development)
+4. **SIMULATION** - Image and video generation (🔄 In Development)
+
+### Voting
+
+Features in development can be voted on. Visit their respective pages to cast your vote and prioritize development!
+
+---
+
+## 📁 Project Structure
+
+```
+the-machine-refactor/
+├── app/                    # Next.js App Router
+│   ├── api/               # API routes
+│   │   ├── chat/         # Chat endpoints
+│   │   └── votes/        # Voting endpoints
+│   ├── mission-control/  # Chat interface
+│   ├── surveillance/     # Monitoring (placeholder)
+│   ├── simulation/       # Generation (placeholder)
+│   └── intelligence/     # Search (placeholder)
+├── components/           # React components
+├── lib/                 # Utilities
+│   ├── ai-providers/    # AI integrations
+│   ├── db.ts           # Prisma client
+│   ├── constants.ts    # Constants
+│   └── types.ts        # TypeScript types
+├── prisma/             # Database schema
+└── public/             # Static assets
+```
+
+---
+
+## 🎨 UI Design
+
+The interface uses a color scheme inspired by *Person of Interest*:
+
+- **Yellow** (#FFD700) - Relevant information
+- **Red** (#FF4500) - Threats and warnings
+- **Blue** (#00FFFF) - Interface elements
+- **White** (#FFFFFF) - Text and admin
+- **Black** (#000000) - Background
+
+---
+
+## 🗺️ Roadmap
+
+### ✅ v0.1.0 (Current)
+- AI chat functionality
+- Sci-fi UI interface
+- Chat history persistence
+- Feature voting system
+
+### 🔄 v0.2.0 (Planned)
+- Web search integration
+- Knowledge graph visualization
+- Enhanced AI responses
+
+### 📅 v0.3.0 (Planned)
+- Image generation
+- Video generation
+- Multi-model support
+
+### 🔮 v0.4.0 (Planned)
+- Camera access
+- Microphone recording
+- Real-time stream processing
+
+### 🎯 v1.0.0 (Future)
+- User authentication
+- Personal settings
+- API key management
+- Performance optimizations
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Here's how you can help:
+
+1. ⭐ **Star the repository** - Show your support
+2. 🐛 **Report bugs** - Open an issue
+3. 💡 **Suggest features** - Vote or propose new ideas
+4. 🔀 **Fork and PR** - Submit pull requests
+
+---
+
+## 📝 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+## 🌟 Acknowledgments
+
+- **CBS** - *Person of Interest* television series
+- **Google** - Gemini AI API
+- **Vercel** - Next.js framework
+- **EchoTrouvaille** - Original *The Machine* project inspiration
+
+---
+
+## 📧 Contact
+
+- **Issues**: [GitHub Issues](https://github.com/your-username/the-machine-refactor/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/your-username/the-machine-refactor/discussions)
+
+---
+
+**Made with ❤️ by fans of *Person of Interest***
+
+*The Machine is watching... always.*
