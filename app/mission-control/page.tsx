@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import { POI_COLORS, LOADING_TEXT, ERROR_TEXT, QUOTES } from '@/lib/constants'
 import type { ChatMessage } from '@/lib/types'
+import Navigation from '@/components/Navigation'
 
 export default function MissionControlPage() {
   const router = useRouter()
@@ -90,22 +91,8 @@ export default function MissionControlPage() {
 
   return (
     <div className="min-h-screen bg-poi-black flex flex-col">
-      {/* 顶部导航栏 */}
-      <nav className="border-b border-poi-gray p-4">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-poi-yellow font-mono">
-            MISSION CONTROL
-          </h1>
-          <button
-            onClick={() => router.push('/')}
-            className="px-4 py-2 border border-poi-red text-poi-red
-                           hover:bg-poi-red hover:text-poi-black
-                           transition-colors font-mono text-sm"
-          >
-            SHUTDOWN
-          </button>
-        </div>
-      </nav>
+      {/* 统一导航栏 */}
+      <Navigation />
 
       {/* 聊天消息区域 */}
       <div className="flex-1 overflow-y-auto p-4">

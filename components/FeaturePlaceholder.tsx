@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { POI_COLORS } from '@/lib/constants'
 import type { FeatureType, VoteStats } from '@/lib/types'
+import Navigation from '@/components/Navigation'
 
 interface FeaturePlaceholderProps {
   feature: FeatureType
@@ -84,23 +85,11 @@ export default function FeaturePlaceholder({
 
   return (
     <div className="min-h-screen bg-poi-black flex flex-col p-8">
-      {/* 顶部导航 */}
-      <nav className="border-b border-poi-gray p-4 mb-8">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-poi-yellow font-mono">{title.toUpperCase()}</h1>
-          <button
-            onClick={() => router.push('/')}
-            className="px-4 py-2 border border-poi-gray text-poi-gray
-                           hover:bg-poi-gray hover:text-poi-black
-                           transition-colors font-mono text-sm"
-          >
-            RETURN
-          </button>
-        </div>
-      </nav>
+      {/* 统一导航栏 */}
+      <Navigation />
 
       {/* 主内容 */}
-      <div className="flex-1 flex items-center justify-center">
+      <div className="flex-1 flex items-center justify-center mt-8">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
