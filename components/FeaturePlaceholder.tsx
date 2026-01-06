@@ -12,6 +12,7 @@ interface FeaturePlaceholderProps {
   description: string
   targetVersion: string
   icon?: string
+  tagline?: string
 }
 
 export default function FeaturePlaceholder({
@@ -19,6 +20,7 @@ export default function FeaturePlaceholder({
   title,
   description,
   targetVersion,
+  tagline,
 }: FeaturePlaceholderProps) {
   const router = useRouter()
   const [votes, setVotes] = useState(0)
@@ -118,14 +120,21 @@ export default function FeaturePlaceholder({
             {/* 标题 */}
             <h2 className="text-4xl font-bold text-poi-white mb-4">{title}</h2>
 
+            {/* Tagline */}
+            {tagline && (
+              <p className="text-poi-yellow text-xl font-mono mb-4 italic">
+                "{tagline}"
+              </p>
+            )}
+
             {/* 描述 */}
             <p className="text-poi-gray text-lg mb-8">{description}</p>
 
             {/* 投票进度 */}
             <div className="mb-6">
               <div className="flex justify-between text-sm font-mono text-poi-blue mb-2">
-                <span>VOTES: {votes}</span>
-                <span>{getVoteProgress().toFixed(0)}%</span>
+                <span>REQUESTS: {votes}</span>
+                <span>PRIORITY: {getVoteProgress().toFixed(0)}%</span>
               </div>
               <div className="w-full h-2 bg-poi-gray rounded overflow-hidden">
                 <motion.div
@@ -147,7 +156,7 @@ export default function FeaturePlaceholder({
                   : 'bg-poi-yellow text-poi-black hover:bg-poi-yellow/80'
               }`}
             >
-              {hasVoted ? '✓ VOTED' : isVoting ? 'VOTING...' : '👍 VOTE FOR THIS FEATURE'}
+              {hasVoted ? 'RECORDED' : isVoting ? 'RECORDING...' : 'REQUEST IMPLEMENTATION'}
             </button>
 
             {/* 说明文字 */}
@@ -157,14 +166,14 @@ export default function FeaturePlaceholder({
                 animate={{ opacity: 1 }}
                 className="text-poi-green text-sm font-mono mt-4 text-center"
               >
-                Thank you for your vote!
+                Your request has been noted.
               </motion.p>
             )}
           </div>
 
           {/* 底部提示 */}
           <p className="text-poi-gray text-sm font-mono mt-6 text-center">
-            This feature is currently in development. Vote to prioritize its development.
+            This module is currently in development. Request prioritization to expedite deployment.
           </p>
         </motion.div>
       </div>
@@ -172,9 +181,9 @@ export default function FeaturePlaceholder({
       {/* 底部状态栏 */}
       <footer className="border-t border-poi-gray px-4 py-2 mt-8">
         <div className="max-w-7xl mx-auto flex justify-between items-center text-xs font-mono text-poi-gray">
-          <span>NODES: {Math.floor(Math.random() * 1000) + 5000} ONLINE</span>
+          <span>STATUS: ONLINE</span>
           <span className="text-poi-green">● OPERATIONAL</span>
-          <span>{new Date().toLocaleString()}</span>
+          <span>THE MACHINE NEVER SLEEPS</span>
         </div>
       </footer>
     </div>

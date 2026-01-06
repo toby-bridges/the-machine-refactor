@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
-import { POI_COLORS, LOADING_TEXT, ERROR_TEXT } from '@/lib/constants'
+import { POI_COLORS, LOADING_TEXT, ERROR_TEXT, QUOTES } from '@/lib/constants'
 import type { ChatMessage } from '@/lib/types'
 
 export default function MissionControlPage() {
@@ -111,10 +111,19 @@ export default function MissionControlPage() {
       <div className="flex-1 overflow-y-auto p-4">
         <div className="max-w-4xl mx-auto space-y-4">
           {messages.length === 0 ? (
-            <div className="text-center text-poi-gray mt-20">
-              <p className="text-sm font-mono">NO MESSAGES YET</p>
-              <p className="text-xs mt-2">Start a conversation with The Machine</p>
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-center text-poi-gray mt-20"
+            >
+              <p className="text-poi-yellow text-lg font-mono mb-4">
+                {QUOTES.ADMIN}
+              </p>
+              <p className="text-sm font-mono mb-2">SYSTEM READY. AWAITING INPUT.</p>
+              <p className="text-xs mt-2 text-poi-blue">
+                "{QUOTES.MACHINE_INTRO}"
+              </p>
+            </motion.div>
           ) : (
             messages.map((msg) => (
               <motion.div
@@ -159,7 +168,24 @@ export default function MissionControlPage() {
               animate={{ opacity: 1 }}
               className="flex justify-start"
             >
-              <div className="bg-poi-gray text-poi-blue px-4 py-2">
+              <div className="bg-poi-gray text-poi-blue px-4 py-2 flex items-center gap-2">
+                <div className="flex gap-1">
+                  <motion.span
+                    animate={{ opacity: [0, 1, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                    className="w-2 h-2 bg-poi-yellow"
+                  />
+                  <motion.span
+                    animate={{ opacity: [0, 1, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity, delay: 0.2 }}
+                    className="w-2 h-2 bg-poi-yellow"
+                  />
+                  <motion.span
+                    animate={{ opacity: [0, 1, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity, delay: 0.4 }}
+                    className="w-2 h-2 bg-poi-yellow"
+                  />
+                </div>
                 <p className="text-sm font-mono">{LOADING_TEXT.AI_THINKING}</p>
               </div>
             </motion.div>
@@ -177,7 +203,7 @@ export default function MissionControlPage() {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Enter your message..."
+              placeholder="Enter your query, Admin..."
               disabled={isLoading}
               className="flex-1 bg-poi-black border border-poi-gray text-poi-white
                        px-4 py-2 font-mono text-sm
@@ -194,7 +220,7 @@ export default function MissionControlPage() {
                        font-mono text-sm font-bold
                        transition-colors"
             >
-              SEND
+              {isLoading ? 'TRANSMITTING...' : 'SEND'}
             </button>
           </div>
         </form>

@@ -3,11 +3,13 @@
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import { QUOTES } from '@/lib/constants'
 
 export default function LandingPage() {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
   const [progress, setProgress] = useState(0)
+  const [showQuote, setShowQuote] = useState(false)
 
   useEffect(() => {
     // 模拟系统初始化
@@ -16,6 +18,8 @@ export default function LandingPage() {
         if (prev >= 100) {
           clearInterval(interval)
           setIsLoading(false)
+          // 初始化完成后显示经典台词
+          setTimeout(() => setShowQuote(true), 500)
           return 100
         }
         return prev + 2
@@ -51,7 +55,7 @@ export default function LandingPage() {
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="mb-12"
+          className="mb-8"
         >
           <h1 className="text-7xl font-bold text-poi-yellow mb-4 tracking-wider">
             THE MACHINE
@@ -60,6 +64,20 @@ export default function LandingPage() {
             ARTIFICIAL INTELLIGENCE SYSTEM
           </p>
         </motion.div>
+
+        {/* 经典开场白 - 系统初始化完成后显示 */}
+        {showQuote && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-3xl mx-auto mb-8"
+          >
+            <p className="text-poi-white text-lg leading-relaxed font-mono">
+              {QUOTES.OPENING}
+            </p>
+          </motion.div>
+        )}
 
         {/* 加载进度 */}
         {isLoading ? (
