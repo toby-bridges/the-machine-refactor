@@ -27,7 +27,7 @@ export default function MissionControlPage() {
 
   const loadHistory = async () => {
     try {
-      const response = await fetch('/api/chat/history')
+      const response = await fetch('/api/chat')
       if (response.ok) {
         const data = await response.json()
         setMessages(data)
